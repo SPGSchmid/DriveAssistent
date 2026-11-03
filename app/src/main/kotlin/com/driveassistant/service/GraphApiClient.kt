@@ -1,4 +1,4 @@
-package com.driveassistant.service
+﻿package com.driveassistant.service
 
 import android.util.Log
 import okhttp3.Interceptor
@@ -86,7 +86,7 @@ object GraphApiClient {
 
             if (response.code == 401) {
                 Log.w(TAG, "HTTP 401 – Token abgelaufen oder ungültig")
-                // TTS nicht verf�gbar in GraphApiClient (kein Context) � nur loggen
+                // TTS nicht verfügbar in GraphApiClient (kein Context) – Fehler nur loggen
             }
 
             return response
@@ -117,3 +117,4 @@ object GraphApiClient {
         }
     }
 }
+

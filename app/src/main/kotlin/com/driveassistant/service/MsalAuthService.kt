@@ -1,4 +1,4 @@
-﻿package com.driveassistant.service
+package com.driveassistant.service
 
 import android.app.Activity
 import android.content.Context
@@ -11,14 +11,13 @@ import com.microsoft.identity.client.AuthenticationCallback
 import com.microsoft.identity.client.IAccount
 import com.microsoft.identity.client.IAuthenticationResult
 import com.microsoft.identity.client.ISingleAccountPublicClientApplication
-import com.microsoft.identity.client.IPublicClientApplication
 import com.microsoft.identity.client.PublicClientApplication
 import com.microsoft.identity.client.SignInParameters
 import com.microsoft.identity.client.exception.MsalException
 
 /**
  * MsalAuthService
- * â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+ * ═══════════════
  * Kapselt die gesamte Microsoft Authentication Library (MSAL)-Logik.
  *
  * Verantwortlichkeiten:
@@ -35,7 +34,7 @@ import com.microsoft.identity.client.exception.MsalException
  * MsalAuthService.getAccessToken(callback)
  * ```
  *
- * Sub-Task 1.4 â€“ Microsoft Graph API OAuth 2.0 Authentifizierung
+ * Sub-Task 1.4 – Microsoft Graph API OAuth 2.0 Authentifizierung
  */
 object MsalAuthService {
 
@@ -57,14 +56,14 @@ object MsalAuthService {
     private var msalApp: ISingleAccountPublicClientApplication? = null
     private var secureStorage: SecureStorage? = null
 
-    // â”€â”€ Initialisierung â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── Initialisierung ───────────────────────────────────────────────────────
 
     /**
      * Initialisiert die MSAL-Instanz anhand von `res/raw/auth_config.json`.
      * Muss einmalig beim App-Start aufgerufen werden (z. B. in [DriveAssistantApp]).
      *
      * @param context Application-Context
-     * @param callback Wird auf dem aufrufenden Thread zurÃ¼ckgerufen
+     * @param callback Wird auf dem aufrufenden Thread zurückgerufen
      */
     fun initialize(context: Context, callback: AuthInitCallback) {
         secureStorage = SecureStorage(context)
@@ -72,9 +71,9 @@ object MsalAuthService {
         PublicClientApplication.createSingleAccountPublicClientApplication(
             context.applicationContext,
             R.raw.auth_config,
-            object : IPublicClientApplication.ApplicationCreatedListener {
-                override fun onCreated(application: IPublicClientApplication) {
-                    msalApp = application as ISingleAccountPublicClientApplication
+            object : PublicClientApplication.ISingleAccountApplicationCreatedListener {
+                override fun onCreated(application: ISingleAccountPublicClientApplication) {
+                    msalApp = application
                     Log.d(TAG, "MSAL erfolgreich initialisiert")
                     callback.onInitialized()
                 }
@@ -87,13 +86,13 @@ object MsalAuthService {
         )
     }
 
-    // â”€â”€ Login â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── Login ─────────────────────────────────────────────────────────────────
 
     /**
      * Startet den interaktiven Login-Flow im Browser-Tab.
      * Kann nur von einer Activity aus aufgerufen werden (nicht aus einem Service).
      *
-     * @param activity Aktuell sichtbare Activity (fÃ¼r Browser-Tab-Redirect)
+     * @param activity Aktuell sichtbare Activity (für Browser-Tab-Redirect)
      * @param callback Liefert den Access Token bei Erfolg
      */
     fun signIn(activity: Activity, callback: AuthCallback) {
@@ -128,10 +127,10 @@ object MsalAuthService {
         app.acquireToken(parameters)
     }
 
-    // â”€â”€ Sign-Out â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── Sign-Out ──────────────────────────────────────────────────────────────
 
     /**
-     * Entfernt den aktuell gespeicherten Account und lÃ¶scht den gecachten Token.
+     * Entfernt den aktuell gespeicherten Account und löscht den gecachten Token.
      *
      * @param callback Wird nach abgeschlossenem Sign-Out aufgerufen
      */
@@ -144,7 +143,7 @@ object MsalAuthService {
         app.signOut(object : ISingleAccountPublicClientApplication.SignOutCallback {
             override fun onSignOut() {
                 secureStorage?.remove(SecureStorage.KEY_MSAL_ACCESS_TOKEN)
-                Log.d(TAG, "Sign-Out erfolgreich, Token gelÃ¶scht")
+                Log.d(TAG, "Sign-Out erfolgreich, Token gelöscht")
                 callback.onComplete()
             }
 
@@ -155,7 +154,7 @@ object MsalAuthService {
         })
     }
 
-    // â”€â”€ Token abrufen (silent) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── Token abrufen (silent) ────────────────────────────────────────────────
 
     /**
      * Ruft den Access Token **ohne Browser-UI** ab (silent refresh via Refresh Token).
@@ -163,7 +162,7 @@ object MsalAuthService {
      * Der erneuerte Token wird in [SecureStorage] gecacht.
      *
      * Bei [com.microsoft.identity.client.exception.MsalUiRequiredException] muss
-     * [signIn] erneut aufgerufen werden (z. B. nach Passwort-Ã„nderung).
+     * [signIn] erneut aufgerufen werden (z. B. nach Passwort-Änderung).
      *
      * @param callback Liefert den (ggf. erneuerten) Access Token
      */
@@ -207,7 +206,7 @@ object MsalAuthService {
             }
 
             override fun onAccountChanged(priorAccount: IAccount?, currentAccount: IAccount?) {
-                Log.d(TAG, "Account geÃ¤ndert")
+                Log.d(TAG, "Account geändert")
             }
 
             override fun onError(exception: MsalException) {
@@ -217,11 +216,11 @@ object MsalAuthService {
         })
     }
 
-    // â”€â”€ Status â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── Status ────────────────────────────────────────────────────────────────
 
     /**
-     * Gibt `true` zurÃ¼ck wenn ein gecachter Access Token vorhanden ist.
-     * Schnell-Check ohne Netzwerk â€“ nutzt nur [SecureStorage].
+     * Gibt `true` zurück wenn ein gecachter Access Token vorhanden ist.
+     * Schnell-Check ohne Netzwerk – nutzt nur [SecureStorage].
      *
      * Hinweis: Der Token kann trotzdem abgelaufen sein. [getAccessToken] erneuert
      * ihn in diesem Fall automatisch via silent refresh.
@@ -230,5 +229,3 @@ object MsalAuthService {
         return secureStorage?.contains(SecureStorage.KEY_MSAL_ACCESS_TOKEN) == true
     }
 }
-
-
