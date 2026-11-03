@@ -1,4 +1,4 @@
-package com.driveassistant.service
+﻿package com.driveassistant.service
 
 import android.content.Context
 import android.content.Intent
@@ -120,7 +120,6 @@ class VoiceRecognitionManager(
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
             putExtra(RecognizerIntent.EXTRA_LANGUAGE, LANGUAGE)
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE, LANGUAGE)
-            putExtra(RecognizerIntent.EXTRA_ONLY_RETURN_LANGUAGE_RESULTS, true)
             // Keine UI-Anzeige (kein Popup-Dialog)
             putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, 1500L)
             putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 2000L)
@@ -205,3 +204,4 @@ class VoiceRecognitionManager(
         }
     }
 }
+
