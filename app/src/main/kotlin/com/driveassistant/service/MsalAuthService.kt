@@ -15,11 +15,6 @@ import com.microsoft.identity.client.ISingleAccountPublicClientApplication
 import com.microsoft.identity.client.PublicClientApplication
 import com.microsoft.identity.client.exception.MsalException
 
-/**
- * MsalAuthService
- * ===============
- * Kapselt die gesamte Microsoft Authentication Library (MSAL)-Logik.
- */
 object MsalAuthService {
 
     private const val TAG = "MsalAuthService"
@@ -42,9 +37,9 @@ object MsalAuthService {
         PublicClientApplication.createSingleAccountPublicClientApplication(
             context.applicationContext,
             R.raw.auth_config,
-            object : IPublicClientApplication.ApplicationCreatedListener {
-                override fun onCreated(application: IPublicClientApplication) {
-                    msalApp = application as ISingleAccountPublicClientApplication
+            object : IPublicClientApplication.ISingleAccountApplicationCreatedListener {
+                override fun onCreated(application: ISingleAccountPublicClientApplication) {
+                    msalApp = application
                     Log.d(TAG, "MSAL erfolgreich initialisiert")
                     callback.onInitialized()
                 }
@@ -73,14 +68,11 @@ object MsalAuthService {
                     Log.d(TAG, "Login erfolgreich, Token gecacht")
                     callback.onSuccess(token)
                 }
-
                 override fun onError(exception: MsalException) {
                     Log.e(TAG, "Login fehlgeschlagen", exception)
                     callback.onError(exception)
                 }
-
                 override fun onCancel() {
-                    Log.d(TAG, "Login abgebrochen vom Nutzer")
                     callback.onError(Exception("Login vom Nutzer abgebrochen"))
                 }
             })
@@ -98,10 +90,9 @@ object MsalAuthService {
         app.signOut(object : ISingleAccountPublicClientApplication.SignOutCallback {
             override fun onSignOut() {
                 secureStorage?.remove(SecureStorage.KEY_MSAL_ACCESS_TOKEN)
-                Log.d(TAG, "Sign-Out erfolgreich, Token geloescht")
+                Log.d(TAG, "Sign-Out erfolgreich")
                 callback.onComplete()
             }
-
             override fun onError(exception: MsalException) {
                 Log.e(TAG, "Sign-Out fehlgeschlagen", exception)
                 callback.onError(exception)
@@ -133,12 +124,10 @@ object MsalAuthService {
                             Log.d(TAG, "Silent-Token-Refresh erfolgreich")
                             callback.onSuccess(token)
                         }
-
                         override fun onError(exception: MsalException) {
                             Log.e(TAG, "Silent-Token-Refresh fehlgeschlagen", exception)
                             callback.onError(exception)
                         }
-
                         override fun onCancel() {
                             callback.onError(Exception("Token-Refresh abgebrochen"))
                         }
