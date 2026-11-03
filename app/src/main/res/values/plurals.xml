@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- PLAUD-Import Benachrichtigungen – Plural-Strings (Sub-Task 3.2) -->
+    <plurals name="plaud_notification_message">
+        <item quantity="one">%d neues Transkript wurde in HubSpot importiert.</item>
+        <item quantity="other">%d neue Transkripte wurden in HubSpot importiert.</item>
+    </plurals>
+</resources>

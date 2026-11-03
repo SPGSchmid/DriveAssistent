@@ -1,0 +1,21 @@
+﻿# Build-Artefakte
+.gradle/
+app/build/
+build/
+
+# Keystore (NIEMALS einchecken!)
+*.keystore
+*.jks
+keystore.properties
+
+# Android Studio
+.idea/
+*.iml
+local.properties
+
+# macOS
+.DS_Store
+__MACOSX/
+
+# Logs
+*.log

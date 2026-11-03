@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primärfarbe: dunkles Blau – gut lesbar im Auto-Display -->
+    <color name="primary">#1A237E</color>
+    <color name="primary_dark">#0D1452</color>
+
+    <!-- Akzentfarbe: Hellblau für interaktive Elemente -->
+    <color name="accent">#42A5F5</color>
+
+    <!-- Hintergrund: Dunkel für Nacht-/Fahrmodus -->
+    <color name="background">#121212</color>
+    <color name="surface">#1E1E1E</color>
+
+    <!-- Texte -->
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#B0B0B0</color>
+
+    <!-- Mikrofon aktiv: Rot (Danger-Signal) -->
+    <color name="mic_active">#EF5350</color>
+
+    <!-- App-Icon Hintergrund -->
+    <color name="ic_launcher_background">#1A237E</color>
+</resources>

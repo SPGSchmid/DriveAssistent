@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- ── Netzwerk ──────────────────────────────────────────────────── -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- ── Spracheingabe ─────────────────────────────────────────────── -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <!-- ── Hintergrund-Service (WorkManager, Teams-Polling) ──────────── -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- ── Dateizugriff (PLAUD-Transkript-Monitoring) ────────────────── -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.READ_MEDIA_DOCUMENTS"
+        tools:ignore="PermissionImpliesUnsatisfiedHardware" />
+
+    <!-- ── Vibration für Benachrichtigungen ──────────────────────────── -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- ── Android Auto: CarAppService benötigt diese Feature-Deklaration ── -->
+    <uses-feature
+        android:name="android.hardware.type.automotive"
+        android:required="false" />
+
+    <application
+        android:name=".DriveAssistantApp"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.DriveAssistant"
+        tools:targetApi="34">
+
+        <!-- ── CarAppService ─────────────────────────────────────────── -->
+        <!--
+            Dies ist der zentrale Einstiegspunkt für Android Auto.
+            android.permission.BIND_CAR_APP_SERVICE stellt sicher,
+            dass nur der Android Auto Host (system-signiert) den Service
+            binden kann.
+        -->
+        <service
+            android:name=".service.MainCarAppService"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:permission="android.car.permission.BIND_CAR_APP_SERVICE">
+
+            <intent-filter>
+                <action android:name="androidx.car.app.CarAppService" />
+                <category android:name="androidx.car.app.category.POI" />
+            </intent-filter>
+
+            <!-- Verweis auf die App-Beschreibung für den Android Auto Host -->
+            <meta-data
+                android:name="androidx.car.app.minCarApiLevel"
+                android:value="1" />
+        </service>
+
+        <!-- ── Platzhalter-Activity (Pflicht für Android Auto Apps) ───── -->
+        <!--
+            Android Auto Apps brauchen mindestens eine Activity. Diese
+            zeigt auf dem Smartphone einen Hinweis, dass die App im Auto
+            genutzt werden soll.
+        -->
+        <activity
+            android:name=".ui.PhoneActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.DriveAssistant">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- ── MSAL Redirect-URI Activity ──────────────────────────────── -->
+        <!--
+            BrowserTabActivity fängt den OAuth-Redirect nach dem Login ab.
+            Die URI muss mit redirect_uri in auth_config.json übereinstimmen:
+            msauth://com.driveassistant/<BASE64_HASH>
+        -->
+        <activity
+            android:name="com.microsoft.identity.client.BrowserTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:scheme="msauth"
+                    android:host="com.driveassistant" />
+            </intent-filter>
+        </activity>
+
+        <!-- ── WorkManager – BroadcastReceiver für Boot-Start ─────────── -->
+        <receiver
+            android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
+            android:exported="false"
+            tools:replace="android:exported" />
+
+    </application>
+
+</manifest>

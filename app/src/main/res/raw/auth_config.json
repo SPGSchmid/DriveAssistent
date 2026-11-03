@@ -1,0 +1,35 @@
+{
+  "_comment_setup": [
+    "=== AZURE PORTAL SETUP – Folgende Werte müssen ersetzt werden ===",
+    "",
+    "1. client_id:    Azure Portal → App registrations → Deine App → Application (client) ID",
+    "                 Format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx (UUID)",
+    "",
+    "2. redirect_uri: Azure Portal → App registrations → Authentication → Add a platform → Android",
+    "                 Package name: com.driveassistant",
+    "                 Signature hash: SHA-1 deines Debug-Keystores (base64-kodiert)",
+    "                 Befehl: keytool -exportcert -alias androiddebugkey -keystore ~/.android/debug.keystore | openssl sha1 -binary | openssl base64",
+    "                 Ergebnis-URI Format: msauth://com.driveassistant/<BASE64_HASH>",
+    "",
+    "3. tenant_id:    Deine Tenant-ID (Single Tenant – nur dein Firmen-Account)",
+    "                 Azure Portal → Azure Active Directory → Overview → Tenant ID",
+    "                 Format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx (UUID)",
+    "",
+    "4. Azure-Registrierung: Supported account types → 'Accounts in this organizational directory only'",
+    "==================================================================="
+  ],
+  "client_id": "bbf6be54-3738-4334-8c74-5c8acba0464d",
+  "authorization_user_agent": "DEFAULT",
+  "redirect_uri": "msauth://com.driveassistant/2jmj7l5rSw0yVb/vlWAYkK/YBwk=",
+  "account_mode": "SINGLE",
+  "broker_redirect_uri_registered": false,
+  "authorities": [
+    {
+      "type": "AAD",
+      "audience": {
+        "type": "AzureADMyOrg",
+        "tenant_id": "b3d86b33-c164-4287-b07a-be5763c7e0b7"
+      }
+    }
+  ]
+}

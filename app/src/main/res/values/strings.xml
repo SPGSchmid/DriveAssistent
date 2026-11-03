@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App-Name -->
+    <string name="app_name">DriveAssistant</string>
+
+    <!-- HomeScreen – Status-Nachrichten (im Auto-Display angezeigt) -->
+    <string name="status_ready">Sag „Hey Assistent" oder tippe auf das Mikrofon,\num loszulegen.</string>
+    <string name="status_listening">Ich höre zu …</string>
+    <string name="status_processing">Verarbeite deine Anfrage …</string>
+    <string name="status_error">Ein Fehler ist aufgetreten. Bitte versuche es erneut.</string>
+    <string name="status_offline">Kein Netzwerk. Offline-Modus aktiv.</string>
+
+    <!-- ActionStrip – Button-Beschriftungen -->
+    <string name="action_speak">Sprechen</string>
+    <string name="action_listening">Zuhören …</string>
+    <string name="action_stop">Stoppen</string>
+    <string name="action_settings">Einstellungen</string>
+
+    <!-- Toast-Nachrichten -->
+    <string name="toast_listening">Ich höre zu …</string>
+    <string name="toast_stopped">Aufnahme gestoppt.</string>
+    <string name="toast_sent">Gesendet.</string>
+    <string name="toast_error">Fehler. Bitte erneut versuchen.</string>
+
+    <!-- PhoneActivity – Login und Status -->
+    <string name="phone_activity_message">DriveAssistant wird im verbundenen Fahrzeug genutzt.\n\nVerbinde dein Smartphone mit Android Auto, um den Assistenten zu starten.\n\nMelde dich mit deinem Microsoft 365-Konto an:</string>
+    <string name="phone_activity_sign_in">Mit Microsoft 365 anmelden</string>
+    <string name="phone_activity_signed_in">✓ Angemeldet mit Microsoft 365\n\nDriveAssistant ist bereit. Verbinde dein Smartphone mit Android Auto.</string>
+    <string name="phone_activity_sign_out">Abmelden</string>
+
+    <!-- Notification-Channels -->
+    <string name="notification_channel_general">DriveAssistant – Allgemein</string>
+    <string name="notification_channel_teams">MS Teams Nachrichten</string>
+    <string name="notification_channel_plaud">PLAUD Transkript-Import</string>
+
+    <!-- Berechtigungsanfragen (Sub-Task 1.2) -->
+    <string name="permission_microphone_rationale">Das Mikrofon wird benötigt, damit du Sprachbefehle geben kannst.</string>
+    <string name="permission_storage_rationale">Speicherzugriff wird benötigt, um PLAUD-Transkripte automatisch zu importieren.</string>
+
+    <!-- Fehler-Nachrichten -->
+    <string name="error_no_network">Keine Internetverbindung. Bitte prüfe dein Netzwerk.</string>
+    <string name="error_auth_failed">Anmeldung fehlgeschlagen. Bitte melde dich erneut an.</string>
+    <string name="error_gpt_timeout">GPT-4 antwortet nicht. Bitte versuche es erneut.</string>
+    <string name="error_no_match">Ich konnte dich nicht verstehen. Bitte versuche es erneut.</string>
+    <string name="error_network">Netzwerkfehler bei der Spracherkennung. Bitte prüfe dein Netzwerk.</string>
+    <string name="error_generic">Fehler bei der Spracherkennung. Bitte erneut versuchen.</string>
+    <string name="error_ai_processing">Es ist ein Fehler aufgetreten. Bitte versuche es erneut.</string>
+
+    <!-- PLAUD-Import Benachrichtigungen (Sub-Task 3.2) -->
+    <string name="plaud_notification_title">PLAUD-Import abgeschlossen</string>
+</resources>

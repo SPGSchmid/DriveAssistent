@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    automotive_app_desc.xml
+    ═══════════════════════
+    Diese Datei deklariert die Kategorie der App für den Android Auto Host.
+
+    Erlaubte Kategorien für Android Auto (Non-Media-Apps):
+      • androidx.car.app.category.NAVIGATION  – Navigations-Apps
+      • androidx.car.app.category.POI         – Points of Interest / Assistent-Apps
+      • androidx.car.app.category.IOT         – IoT-Steuerungs-Apps
+
+    Der DriveAssistant nutzt "POI", da er kein eigenständiger Navigations-Ersatz
+    ist, sondern als KI-Assistent mit Zugriff auf E-Mails, Kalender, CRM und
+    Navigation fungiert. POI ist die korrekte Kategorie für solche Assistenten.
+
+    Referenz: https://developer.android.com/training/cars/apps
+-->
+<automotiveApp>
+    <uses name="template" />
+</automotiveApp>

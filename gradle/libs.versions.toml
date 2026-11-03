@@ -1,0 +1,68 @@
+[versions]
+agp                     = "8.3.2"
+kotlin                  = "1.9.23"
+coreKtx                 = "1.13.1"
+appcompat               = "1.7.0"
+lifecycleRuntime        = "2.8.2"
+activityCompose         = "1.9.0"
+
+# Android for Cars App Library
+carApp                  = "1.4.0"
+
+# Networking
+retrofit                = "2.11.0"
+okhttp                  = "4.12.0"
+gson                    = "2.10.1"
+
+# Microsoft Identity (MSAL)
+msal                    = "4.9.0"
+
+# Security
+securityCrypto          = "1.1.0-alpha06"
+
+# Room (offline cache + PLAUD import tracking)
+room                    = "2.6.1"
+
+# WorkManager (background jobs)
+workManager             = "2.9.0"
+
+# Coroutines
+coroutines              = "1.8.1"
+
+[libraries]
+# Core
+core-ktx                = { group = "androidx.core",         name = "core-ktx",             version.ref = "coreKtx" }
+appcompat               = { group = "androidx.appcompat",    name = "appcompat",             version.ref = "appcompat" }
+lifecycle-runtime       = { group = "androidx.lifecycle",    name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntime" }
+
+# Android for Cars App Library
+car-app                 = { group = "androidx.car.app",      name = "app",                  version.ref = "carApp" }
+
+# Networking
+retrofit-core           = { group = "com.squareup.retrofit2", name = "retrofit",            version.ref = "retrofit" }
+retrofit-gson           = { group = "com.squareup.retrofit2", name = "converter-gson",       version.ref = "retrofit" }
+okhttp-core             = { group = "com.squareup.okhttp3",  name = "okhttp",               version.ref = "okhttp" }
+okhttp-logging          = { group = "com.squareup.okhttp3",  name = "logging-interceptor",  version.ref = "okhttp" }
+gson                    = { group = "com.google.code.gson",  name = "gson",                 version.ref = "gson" }
+
+# Microsoft Identity (MSAL)
+msal                    = { group = "com.microsoft.identity.client", name = "msal", version.ref = "msal" }
+
+# Security
+security-crypto         = { group = "androidx.security",     name = "security-crypto",       version.ref = "securityCrypto" }
+
+# Room
+room-runtime            = { group = "androidx.room",         name = "room-runtime",          version.ref = "room" }
+room-ktx                = { group = "androidx.room",         name = "room-ktx",              version.ref = "room" }
+room-compiler           = { group = "androidx.room",         name = "room-compiler",         version.ref = "room" }
+
+# WorkManager
+work-runtime            = { group = "androidx.work",         name = "work-runtime-ktx",      version.ref = "workManager" }
+
+# Coroutines
+coroutines-android      = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+
+[plugins]
+android-application     = { id = "com.android.application",  version.ref = "agp" }
+kotlin-android          = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-kapt             = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
